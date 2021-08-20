@@ -15,6 +15,7 @@
 @import url(./blocks/form/__close-icon/form__close-icon.css);
 @import url(./blocks/form/__img/form__img.css);
 @import url(./blocks/form/_show-image/form_show-image.css);
+@import url(./blocks/user-form/user-form.css);
 @import url(./blocks/overlay/overlay.css);
 @import url(./blocks/element/element.css);
 @import url(./blocks/element/__container/element__container.css);

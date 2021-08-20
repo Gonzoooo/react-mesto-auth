@@ -11,6 +11,8 @@ import AddPlacePopup from "./AddPlacePopup";
 import DeletePlacePopup from "./DeletePlacePopup";
 import { Route } from "react-router-dom";
 import InfoTooltip from "./InfoTooltip";
+import Register from "./Register";
+import Login from "./Login";
 
 function App() {
     const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
@@ -137,22 +139,26 @@ function App() {
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
-                <InfoTooltip/>
-                {/*<Header />*/}
-                {/*<Route path="/">*/}
-                {/*    <Main*/}
-                {/*        onEditAvatar={handleEditAvatarClick}*/}
-                {/*        onEditProfile={handleEditProfileClick}*/}
-                {/*        onAddPlace={handleAddPlaceClick}*/}
-                {/*        onCardClick={handleCardClick}*/}
-                {/*        onCardLike={handleCardLike}*/}
-                {/*        onCardDelete={handleDeleteCardClick}*/}
-                {/*        cards={cards}*/}
-                {/*    />*/}
-                {/*</Route>*/}
-                {/*<Route path="/sign-up" />*/}
-                {/*<Route path="/sign-in" />*/}
-                {/*<Footer />*/}
+                <Header />
+                <Route path="/">
+                    {/*<Main*/}
+                    {/*    onEditAvatar={handleEditAvatarClick}*/}
+                    {/*    onEditProfile={handleEditProfileClick}*/}
+                    {/*    onAddPlace={handleAddPlaceClick}*/}
+                    {/*    onCardClick={handleCardClick}*/}
+                    {/*    onCardLike={handleCardLike}*/}
+                    {/*    onCardDelete={handleDeleteCardClick}*/}
+                    {/*    cards={cards}*/}
+                    {/*/>*/}
+                </Route>
+                <Route path="/sign-up">
+                    <Register/>
+                </Route>
+                <Route path="/sign-in">
+                    <Login/>
+                </Route>
+                <Register/>
+                <Footer />
 
                 {/*<EditAvatarPopup*/}
                 {/*    isOpen={isEditAvatarPopupOpen}*/}
@@ -178,11 +184,11 @@ function App() {
                 {/*    onDeletePlace={handleCardDelete}*/}
                 {/*/>*/}
 
-                {/*<ImagePopup*/}
-                {/*    isOpen={isImagePopupOpen}*/}
-                {/*    onClose={closeAllPopups}*/}
-                {/*    card={selectedCard}*/}
-                {/*/>*/}
+                <ImagePopup
+                    isOpen={isImagePopupOpen}
+                    onClose={closeAllPopups}
+                    card={selectedCard}
+                />
             </div>
         </CurrentUserContext.Provider>
     );
