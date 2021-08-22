@@ -9,10 +9,10 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import DeletePlacePopup from "./DeletePlacePopup";
-import { Route } from "react-router-dom";
-import InfoTooltip from "./InfoTooltip";
+import { Route, Switch } from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
+import InfoTooltip from "./InfoTooltip";
 
 function App() {
     const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
@@ -140,54 +140,60 @@ function App() {
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
                 <Header />
-                <Route path="/">
-                    {/*<Main*/}
-                    {/*    onEditAvatar={handleEditAvatarClick}*/}
-                    {/*    onEditProfile={handleEditProfileClick}*/}
-                    {/*    onAddPlace={handleAddPlaceClick}*/}
-                    {/*    onCardClick={handleCardClick}*/}
-                    {/*    onCardLike={handleCardLike}*/}
-                    {/*    onCardDelete={handleDeleteCardClick}*/}
-                    {/*    cards={cards}*/}
-                    {/*/>*/}
-                </Route>
-                <Route path="/sign-up">
-                    <Register/>
-                </Route>
-                <Route path="/sign-in">
-                    <Login/>
-                </Route>
-                <Register/>
+                <Switch>
+                    <Route exact path="/">
+                        <Main
+                            onEditAvatar={handleEditAvatarClick}
+                            onEditProfile={handleEditProfileClick}
+                            onAddPlace={handleAddPlaceClick}
+                            onCardClick={handleCardClick}
+                            onCardLike={handleCardLike}
+                            onCardDelete={handleDeleteCardClick}
+                            cards={cards}
+                        />
+                    </Route>
+                    <Route path="/sign-up">
+                        <Register/>
+                    </Route>
+                    <Route path="/sign-in">
+                        <Login/>
+                    </Route>
+                </Switch>
                 <Footer />
 
-                {/*<EditAvatarPopup*/}
-                {/*    isOpen={isEditAvatarPopupOpen}*/}
-                {/*    onClose={closeAllPopups}*/}
-                {/*    onUpdateAvatar={handleUpdateAvatar}*/}
-                {/*/>*/}
+                <EditAvatarPopup
+                    isOpen={isEditAvatarPopupOpen}
+                    onClose={closeAllPopups}
+                    onUpdateAvatar={handleUpdateAvatar}
+                />
 
-                {/*<EditProfilePopup*/}
-                {/*    isOpen={isEditProfilePopupOpen}*/}
-                {/*    onClose={closeAllPopups}*/}
-                {/*    onUpdateUser={handleUpdateUser}*/}
-                {/*/>*/}
+                <EditProfilePopup
+                    isOpen={isEditProfilePopupOpen}
+                    onClose={closeAllPopups}
+                    onUpdateUser={handleUpdateUser}
+                />
 
-                {/*<AddPlacePopup*/}
-                {/*    isOpen={isAddPlacePopupOpen}*/}
-                {/*    onClose={closeAllPopups}*/}
-                {/*    onAddPlace={handleAddPlaceSubmit}*/}
-                {/*/>*/}
+                <AddPlacePopup
+                    isOpen={isAddPlacePopupOpen}
+                    onClose={closeAllPopups}
+                    onAddPlace={handleAddPlaceSubmit}
+                />
 
-                {/*<DeletePlacePopup*/}
-                {/*    isOpen={isDeletePopupOpen}*/}
-                {/*    onClose={closeAllPopups}*/}
-                {/*    onDeletePlace={handleCardDelete}*/}
-                {/*/>*/}
+                <DeletePlacePopup
+                    isOpen={isDeletePopupOpen}
+                    onClose={closeAllPopups}
+                    onDeletePlace={handleCardDelete}
+                />
 
                 <ImagePopup
                     isOpen={isImagePopupOpen}
                     onClose={closeAllPopups}
                     card={selectedCard}
+                />
+
+                <InfoTooltip
+                    isOpen={isImagePopupOpen}
+                    onClose={closeAllPopups}
                 />
             </div>
         </CurrentUserContext.Provider>

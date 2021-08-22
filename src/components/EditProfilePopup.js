@@ -36,6 +36,7 @@ function EditProfilePopup({onUpdateUser,isOpen,onClose}) {
             onSubmit={handleSubmit}
             isOpen={isOpen}
             onClose={onClose}
+            className='form__submit-button'
         >
             <div className="input input_type_edit-profile">
                 <input

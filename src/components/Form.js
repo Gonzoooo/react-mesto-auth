@@ -1,21 +1,24 @@
 import React from "react";
+import { NavLink } from 'react-router-dom';
+import { Route } from "react-router-dom";
 
 function Form({name,onSubmit,title,children,submitBtnText}) {
     return (
-        <div className='user-form'>
             <form
-                className="form"
+                className="form form_for_user"
                 name={name}
                 onSubmit={onSubmit}
                 noValidate
             >
-                <h2 className="form__title">{title}</h2>
+                <h2 className="form__title form__title_for_user">{title}</h2>
                 {children}
-                <button className="popup__submit-button" type="submit" name="button">
+                <button className="form__submit-button form__submit-button_for_user" type="submit" name="button">
                     {submitBtnText}
                 </button>
+                <Route path="/sign-up">
+                    <NavLink to='/sign-in' className="form__login-button">Уже зарегестрированы? Войти</NavLink>
+                </Route>
             </form>
-    </div>
     );
 }
 

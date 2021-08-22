@@ -21,6 +21,7 @@ function AddPlacePopup({ onAddPlace, isOpen, onClose }) {
             submitBtnText="Создать"
             isOpen={isOpen}
             onClose={onClose}
+            className='form__submit-button'
         >
             <div className="input input_type_add-card">
                 <input

@@ -1,11 +1,11 @@
 import React from "react";
 import buttonClose from "../images/CloseIcon.svg";
 
-function PopupWithForm({name,isOpen,onSubmit,onClose,title,children,submitBtnText}) {
+function PopupWithForm({name,isOpen,onSubmit,onClose,title,children,submitBtnText, className}) {
     return (
         <div
             className={`popup popup_type_${name} ${
-                isOpen ? "popup_visible" : "popup_visible"
+                isOpen ? "popup_visible" : ""
             }`}
         >
             <div className="overlay" onClick={onClose} />
@@ -29,7 +29,7 @@ function PopupWithForm({name,isOpen,onSubmit,onClose,title,children,submitBtnTex
                 </button>
                 <h2 className="form__title">{title}</h2>
                 {children}
-                <button className="popup__submit-button" type="submit" name="button">
+                <button className={className} type="submit" name="button">
                     {submitBtnText}
                 </button>
             </form>

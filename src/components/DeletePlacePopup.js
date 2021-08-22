@@ -15,6 +15,7 @@ function DeletePlacePopup({onDeletePlace,isOpen,onClose}) {
             onSubmit={handleSubmit}
             isOpen={isOpen}
             onClose={onClose}
+            className='form__submit-button'
         />
     );
 }

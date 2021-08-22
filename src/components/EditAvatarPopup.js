@@ -19,6 +19,7 @@ function EditAvatarPopup({onUpdateAvatar,isOpen,onClose}) {
             submitBtnText="Сохранить"
             isOpen={isOpen}
             onClose={onClose}
+            className='form__submit-button'
         >
             <div className="input input_type_new-avatar">
                 <input
