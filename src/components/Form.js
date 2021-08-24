@@ -15,8 +15,8 @@ function Form({name,onSubmit,title,children,submitBtnText}) {
                 <button className="form__submit-button form__submit-button_for_user" type="submit" name="button">
                     {submitBtnText}
                 </button>
-                <Route path="/sign-up">
-                    <NavLink to='/sign-in' className="form__login-button">Уже зарегестрированы? Войти</NavLink>
+                <Route path="/signup">
+                    <NavLink to='/signin' className="form__login-button">Уже зарегестрированы? Войти</NavLink>
                 </Route>
             </form>
     );
