@@ -9,7 +9,7 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import DeletePlacePopup from "./DeletePlacePopup";
-import {Route, Switch, useHistory} from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
 import InfoTooltip from "./InfoTooltip";
@@ -17,46 +17,77 @@ import ProtectedRoute from "./ProtectedRoute";
 import * as auth from "../utils/auth";
 
 function App() {
+    const [isEditProfilePopupOpen, setEditProfilePopupOpen] =
+        React.useState(false);
+    const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] =
+        React.useState(false);
     const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
-    const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
     const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
-    const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
     const [isDeletePopupOpen, setDeletePopupOpen] = React.useState(false);
+    const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
+    const [isSuccessReg, setIsSuccessReg] = React.useState(false);
+    const [loggedIn, setLoggedIn] = React.useState(false);
     const [selectedCard, setSelectedCard] = React.useState({});
-    const [currentUser, setCurrentUser] = React.useState({});
     const [cardToDelete, setCardToDelete] = React.useState({});
+    const [currentUser, setCurrentUser] = React.useState({});
     const [cards, setCards] = React.useState([]);
-    const [loggedIn, setLoggedIn] = React.useState(true);
-    let history = useHistory();
+    const [headerEmail, setHeaderEmail] = React.useState("");
+    const history = useHistory();
+
+    function handleAuthorization(email, password) {
+        auth
+            .authorize(email, password)
+            .then((data) => {
+                setLoggedIn(true);
+                localStorage.setItem("jwt", data.token);
+                history.push("/");
+            })
+            .catch((e) => {
+                console.log(`ошибка при загрузке данных: ${e}`);
+            });
+    }
+
+    function handleRegistration(email, password) {
+        auth
+            .register(email, password)
+            .then((res) => {
+                if (res) {
+                    history.push("/signin");
+                    setIsSuccessReg(true);
+                    setInfoTooltipPopupOpen(true);
+                }
+            })
+            .catch(() => {
+                setIsSuccessReg(false);
+                setInfoTooltipPopupOpen(true);
+            });
+    }
+
+    const handleCheckToken = React.useCallback(() => {
+        const token = localStorage.getItem("jwt");
+        auth
+            .checkToken(token)
+            .then(
+                (data) => {
+                    setLoggedIn(true);
+                    setHeaderEmail(data.data.email);
+                    history.push("/");
+                },
+                (err) => {
+                    console.log(err);
+                }
+            )
+            .catch((e) => {
+                console.log(`ошибка при загрузке данных: ${e}`);
+            });
+    }, [history, setLoggedIn]);
 
     React.useEffect(() => {
-        tokenCheck();
-    }, [loggedIn]);
-
-    function handleLogin(e) {
-        e.preventDefault();
-        setLoggedIn(true);
-    }
-
-    function tokenCheck() {
-        const jwt = localStorage.getItem('jwt');
-        if (jwt){
-            auth.checkToken(jwt).then((res) => {
-                if (res){
-                    const userData = {
-                        email: res.email,
-                        password: res.password
-                    }
-                    setLoggedIn({
-                        loggedIn: true,
-                        userData
-                    }, () => {
-                        history.push("/");
-                    });
-                }
-            });
+        const token = localStorage.getItem("jwt");
+        if (token) {
+            handleCheckToken();
         }
-    }
+    }, [handleCheckToken]);
 
     React.useEffect(() => {
         Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -167,12 +198,13 @@ function App() {
         setEditAvatarPopupOpen(false);
         setImagePopupOpen(false);
         setDeletePopupOpen(false);
+        setInfoTooltipPopupOpen(false);
     }
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
-                <Header />
+                <Header headerEmail={headerEmail} />
                 <Switch>
                     <ProtectedRoute
                         exact
@@ -186,13 +218,12 @@ function App() {
                         onCardLike={handleCardLike}
                         onCardDelete={handleDeleteCardClick}
                         cards={cards}
-                    >
-                    </ProtectedRoute>
+                    />
                     <Route path="/signup">
-                        <Register/>
+                        <Register onReg={handleRegistration} />
                     </Route>
                     <Route path="/signin">
-                        <Login userData={setLoggedIn.userData} handleLogin={handleLogin}/>
+                        <Login onAuth={handleAuthorization} />
                     </Route>
                 </Switch>
                 <Footer />
@@ -228,8 +259,9 @@ function App() {
                 />
 
                 <InfoTooltip
-                    isOpen={isImagePopupOpen}
+                    isOpen={isInfoTooltipPopupOpen}
                     onClose={closeAllPopups}
+                    isSuccess={isSuccessReg}
                 />
             </div>
         </CurrentUserContext.Provider>

@@ -10,4 +10,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: opacity 0.3s linear;
+}
+
+.form__login-button:hover {
+    cursor: pointer;
+    opacity: 0.8;
 }

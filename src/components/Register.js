@@ -1,13 +1,9 @@
 import React from "react";
 import Form from "./Form";
-import * as auth from '../utils/auth';
-import {useHistory} from "react-router-dom";
 
-
-function Register() {
-    const [passwordValue, setPassword] = React.useState('');
-    const [emailValue, setEmail] = React.useState('');
-    let history = useHistory();
+function Register({ onReg }) {
+    const [passwordValue, setPassword] = React.useState("");
+    const [emailValue, setEmail] = React.useState("");
 
     function handleChangePassword(e) {
         setPassword(e.target.value);
@@ -17,20 +13,14 @@ function Register() {
         setEmail(e.target.value);
     }
 
-    function handleSubmit(e){
+    function handleSubmit(e) {
         e.preventDefault();
         const email = emailValue;
         const password = passwordValue;
-
-        auth.register(email, password)
-            .then((res) => {
-                if(res){
-                    history.push('/signin');
-                }
-            });
+        onReg(email, password);
     }
 
-    return(
+    return (
         <>
             <Form
                 title="Регистрация"
@@ -46,6 +36,7 @@ function Register() {
                         type="email"
                         name="Email"
                         placeholder="Email"
+                        autoComplete="on"
                         value={emailValue}
                         onChange={handleChangeEmail}
                     />
@@ -56,14 +47,15 @@ function Register() {
                         type="password"
                         name="password"
                         placeholder="Пароль"
+                        autoComplete="on"
                         value={passwordValue}
                         onChange={handleChangePassword}
                     />
                     <span />
                 </div>
             </Form>
-</>
-)
+        </>
+    );
 }
 
 export default Register;
