@@ -8,7 +8,6 @@ function Form({ name, onSubmit, title, children, submitBtnText }) {
             className="form form_for_user"
             name={name}
             onSubmit={onSubmit}
-            noValidate
         >
             <h2 className="form__title form__title_for_user">{title}</h2>
             {children}

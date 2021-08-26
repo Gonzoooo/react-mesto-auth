@@ -17,8 +17,10 @@
 @import url(./blocks/form/_show-image/form_show-image.css);
 @import url(./blocks/form/_for_user/form_for_user.css);
 @import url(./blocks/form/__login-button/form__login-button.css);
-@import url(./blocks/form/__title/form__title_for_user/form__title_for_user.css);
+@import url(./blocks/form/__title/_for_user/form__title_for_user.css);
+@import url(./blocks/form/__title/_for_info-tooltip/form__title_for_info-tooltip.css);
 @import url(./blocks/form/__submit-button/_for_user/form__submit-button_for_user.css);
+@import url(./blocks/form/_for_info-tooltip/form__for_info-tooltip.css);
 @import url(./blocks/form/__submit-button/_for_reg/form__submit-button_for_reg.css);
 @import url(./blocks/overlay/overlay.css);
 @import url(./blocks/element/element.css);

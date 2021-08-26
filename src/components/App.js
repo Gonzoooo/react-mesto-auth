@@ -17,7 +17,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import * as auth from "../utils/auth";
 
 function App() {
-    const [isEditProfilePopupOpen, setEditProfilePopupOpen] =
+    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
         React.useState(false);
     const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] =
         React.useState(false);
@@ -78,12 +78,6 @@ function App() {
             });
     }, [history, setLoggedIn]);
 
-    function handleSignOut() {
-        setLoggedIn(false);
-        localStorage.removeItem("jwt");
-        history.push("/signin");
-    }
-
     React.useEffect(() => {
         const token = localStorage.getItem("jwt");
         if (token) {
@@ -101,6 +95,12 @@ function App() {
                 console.log(`ошибка при загрузке данных: ${e}`);
             });
     }, []);
+
+    function handleSignOut() {
+        setLoggedIn(false);
+        localStorage.removeItem("jwt");
+        history.push("/signin");
+    }
 
     function handleCardLike(card) {
         const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -187,7 +187,7 @@ function App() {
     }
 
     function handleEditProfileClick() {
-        setEditProfilePopupOpen(true);
+        setIsEditProfilePopupOpen(true);
     }
 
     function handleAddPlaceClick() {
@@ -196,12 +196,23 @@ function App() {
 
     function closeAllPopups() {
         setAddPlacePopupOpen(false);
-        setEditProfilePopupOpen(false);
+        setIsEditProfilePopupOpen(false);
         setEditAvatarPopupOpen(false);
         setImagePopupOpen(false);
         setDeletePopupOpen(false);
         setInfoTooltipPopupOpen(false);
     }
+
+    React.useEffect(() => {
+        const closeByEscape = (e) => {
+            if (e.key === 'Escape') {
+                closeAllPopups();
+            }
+        }
+
+        document.addEventListener('keydown', closeByEscape)
+        return () => document.removeEventListener('keydown', closeByEscape)
+    }, [])
 
     return (
         <CurrentUserContext.Provider value={currentUser}>

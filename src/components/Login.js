@@ -29,7 +29,6 @@ function Login({ onAuth }) {
                     maxLength="30"
                     className="popup__input popup__input_for_user"
                     type="email"
-                    pattern=".+@globex\.com"
                     name="Email"
                     placeholder="Email"
                     autoComplete="on"

@@ -13,7 +13,6 @@ function PopupWithForm({name,isOpen,onSubmit,onClose,title,children,submitBtnTex
                 className="form"
                 name={name}
                 onSubmit={onSubmit}
-                noValidate
             >
                 <button
                     aria-label="Close"
