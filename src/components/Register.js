@@ -21,40 +21,38 @@ function Register({ onReg }) {
     }
 
     return (
-        <>
-            <Form
-                title="Регистрация"
-                submitBtnText="Зарегистрироваться"
-                onSubmit={handleSubmit}
-            >
-                <div className="input">
-                    <input
-                        required
-                        minLength="2"
-                        maxLength="30"
-                        className="popup__input popup__input_for_user"
-                        type="email"
-                        name="Email"
-                        placeholder="Email"
-                        autoComplete="on"
-                        value={emailValue}
-                        onChange={handleChangeEmail}
-                    />
-                    <span />
-                    <input
-                        required
-                        className="popup__input popup__input_for_user"
-                        type="password"
-                        name="password"
-                        placeholder="Пароль"
-                        autoComplete="on"
-                        value={passwordValue}
-                        onChange={handleChangePassword}
-                    />
-                    <span />
-                </div>
-            </Form>
-        </>
+        <Form
+            title="Регистрация"
+            submitBtnText="Зарегистрироваться"
+            onSubmit={handleSubmit}
+        >
+            <div className="input">
+                <input
+                    required
+                    minLength="2"
+                    maxLength="30"
+                    className="popup__input popup__input_for_user"
+                    type="email"
+                    name="Email"
+                    placeholder="Email"
+                    autoComplete="on"
+                    value={emailValue}
+                    onChange={handleChangeEmail}
+                />
+                <span />
+                <input
+                    required
+                    className="popup__input popup__input_for_user"
+                    type="password"
+                    name="password"
+                    placeholder="Пароль"
+                    autoComplete="on"
+                    value={passwordValue}
+                    onChange={handleChangePassword}
+                />
+                <span />
+            </div>
+        </Form>
     );
 }
 

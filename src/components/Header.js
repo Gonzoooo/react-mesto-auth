@@ -1,13 +1,8 @@
 import React from "react";
 import logoMesto from "../images/logo.svg";
-import { Route, NavLink, useHistory } from "react-router-dom";
+import { Route, NavLink } from "react-router-dom";
 
-function Header({ headerEmail }) {
-    const history = useHistory();
-    function signOut() {
-        localStorage.removeItem("jwt");
-        history.push("/signin");
-    }
+function Header({ headerEmail, signOut }) {
 
     return (
         <div>

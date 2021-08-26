@@ -72,15 +72,17 @@ function App() {
                     setLoggedIn(true);
                     setHeaderEmail(data.data.email);
                     history.push("/");
-                },
-                (err) => {
-                    console.log(err);
-                }
-            )
+                })
             .catch((e) => {
                 console.log(`ошибка при загрузке данных: ${e}`);
             });
     }, [history, setLoggedIn]);
+
+    function handleSignOut() {
+        setLoggedIn(false);
+        localStorage.removeItem("jwt");
+        history.push("/signin");
+    }
 
     React.useEffect(() => {
         const token = localStorage.getItem("jwt");
@@ -204,7 +206,7 @@ function App() {
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
-                <Header headerEmail={headerEmail} />
+                <Header headerEmail={headerEmail} signOut={handleSignOut}/>
                 <Switch>
                     <ProtectedRoute
                         exact
