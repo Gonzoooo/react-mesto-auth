@@ -2,16 +2,31 @@ import PopupWithForm from "./PopupWithForm";
 import React from "react";
 
 function AddPlacePopup({ onAddPlace, isOpen, onClose }) {
-    const cardNameRef = React.useRef();
-    const cardImgRef = React.useRef();
+    const [cardNameValue, setCardNameValue] = React.useState("");
+    const [cardImgValue, setCardImgValue] = React.useState("");
+
+    function handleChangeCardName(e) {
+        setCardNameValue(e.target.value);
+    }
+
+    function handleChangeCardImg(e) {
+        setCardImgValue(e.target.value);
+    }
 
     function handleSubmit(e) {
         e.preventDefault();
+        const cardName = cardNameValue;
+        const cardImg = cardImgValue;
         onAddPlace({
-            name: cardNameRef.current.value,
-            link: cardImgRef.current.value,
+            name: cardName,
+            link: cardImg,
         });
     }
+
+    React.useEffect(() => {
+        setCardNameValue("");
+        setCardImgValue("");
+    }, [isOpen]);
 
     return (
         <PopupWithForm
@@ -21,12 +36,13 @@ function AddPlacePopup({ onAddPlace, isOpen, onClose }) {
             submitBtnText="Создать"
             isOpen={isOpen}
             onClose={onClose}
-            className='form__submit-button'
+            className="form__submit-button"
         >
             <div className="input input_type_add-card">
                 <input
                     id="popup__input_place_name"
-                    ref={cardNameRef}
+                    value={cardNameValue}
+                    onChange={handleChangeCardName}
                     required
                     minLength="2"
                     maxLength="30"
@@ -38,7 +54,8 @@ function AddPlacePopup({ onAddPlace, isOpen, onClose }) {
                 <span id="popup__input_place_name--error" />
                 <input
                     id="popup__input_place_link"
-                    ref={cardImgRef}
+                    value={cardImgValue}
+                    onChange={handleChangeCardImg}
                     required
                     className="popup__input popup__input_place_link"
                     type="url"

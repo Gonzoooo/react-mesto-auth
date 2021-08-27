@@ -63,27 +63,22 @@ function App() {
             });
     }
 
-    const handleCheckToken = React.useCallback(() => {
-        const token = localStorage.getItem("jwt");
-        auth
-            .checkToken(token)
-            .then(
-                (data) => {
-                    setLoggedIn(true);
-                    setHeaderEmail(data.data.email);
-                    history.push("/");
-                })
-            .catch((e) => {
-                console.log(`ошибка при загрузке данных: ${e}`);
-            });
-    }, [history, setLoggedIn]);
-
     React.useEffect(() => {
-        const token = localStorage.getItem("jwt");
-        if (token) {
-            handleCheckToken();
+        if(localStorage.getItem("jwt")) {
+            const token = localStorage.getItem("jwt");
+            auth
+                .checkToken(token)
+                .then(
+                    (data) => {
+                        setLoggedIn(true);
+                        setHeaderEmail(data.data.email);
+                        history.push("/");
+                    })
+                .catch((e) => {
+                    console.log(`ошибка при загрузке данных: ${e}`);
+                });
         }
-    }, [handleCheckToken]);
+    }, [history,loggedIn]);
 
     React.useEffect(() => {
         Promise.all([api.getUserInfo(), api.getInitialCards()])
