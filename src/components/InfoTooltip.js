@@ -15,13 +15,13 @@ function InfoTooltip({ isOpen, onClose, isSuccess }) {
                     alt={
                         isSuccess
                             ? "Вы успешно зарегестрировались!"
-                            : "Что-то пошло не так! Попроуйте ещё раз."
+                            : "Что-то пошло не так! Попробуйте ещё раз."
                     }
                 />
                 <h2 className="form__title form__title_for_info-tooltip">{
                     isSuccess
                         ? "Вы успешно зарегестрировались!"
-                        : "Что-то пошло не так! Попроуйте ещё раз."
+                        : "Что-то пошло не так! Попробуйте ещё раз."
                 }</h2>
                 <button
                     aria-label="Close"
